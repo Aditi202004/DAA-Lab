@@ -1,0 +1,6 @@
+Minimum cost for the Travelling Salesman Problem: 20
+Minimum cost for the Travelling Salesman Problem: 17
+Minimum cost for the Travelling Salesman Problem: 22
+Minimum cost for the Travelling Salesman Problem: 16
+Minimum cost for the Travelling Salesman Problem: 20
+Minimum cost for the Travelling Salesman Problem: 28

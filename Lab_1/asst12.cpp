@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<climits>
+#include<fstream>
 using namespace std;
 
 int knap(vector<vector<int>>&dp, int i, int w, int weights[], int profits[]){
@@ -25,35 +26,51 @@ int knap(vector<vector<int>>&dp, int i, int w, int weights[], int profits[]){
 }
 
 int main(){
-    int N, W;
-    cout << "enter number of items: ";
-    cin >> N;
-    cout << "enter maximum weight: ";
-    cin >> W;
-    int *weights = new int[N];
-    int *values = new int[N];
-    cout << "enter weights: ";
-    for(int i = 0; i<N; i++){
-        cin >> weights[i];
-    }
-    cout << "enter values: ";
-    for(int i = 0; i < N; i++){
-        cin >> values[i];
-    }
-    vector<vector<int>>dp(N + 1, vector<int>(W + 1));
-    for(int i = 0; i <= N; i++){
-        for(int j = 0; j<=W; j++){
-            dp[i][j] = -1;
+    ofstream input;
+    input.open("input2.txt",ios::in);
+    int testcase;
+    testcase = rand()%10+1;
+    input << testcase << endl;
+    while(testcase--){
+        int num = rand()%10+1;
+        input << num << endl;
+        input << rand()%10 << endl;//W
+        for(int i=0;i<num;i++){
+            input << rand()%10+1 << " ";//v[i]
         }
-    }
-    cout << "max value: " << knap(dp, N, W, weights, values) << endl;
+        input << endl;
+        for(int i=0;i<num;i++){
+            input << rand()%10+1 << " ";//w[i]
+        }
+        input << endl;
+    } 
+    #ifndef ONLINE_JUDGE
+	    freopen("input2.txt","r",stdin);
+	    freopen("output2.txt","w",stdout);
+    #endif
 
-    // // for printing the dp matrix: 
-    // for(int i = 0; i<=N; i++){
-    //     for(int j = 0; j<=W; j++){
-    //         cout << dp[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
+    int t;
+    cin >> t;
+    while(t--){
+        int N, W;
+        cin >> N;
+        cin >> W;
+        int *weights = new int[N];
+        int *values = new int[N];
+        for(int i = 0; i<N; i++){
+            cin >> weights[i];
+        }
+        for(int i = 0; i < N; i++){
+            cin >> values[i];
+        }
+        vector<vector<int>>dp(N + 1, vector<int>(W + 1));
+        for(int i = 0; i <= N; i++){
+            for(int j = 0; j<=W; j++){
+                dp[i][j] = -1;
+            }
+        }
+        cout << "max value: " << knap(dp, N, W, weights, values) << endl;
+    }
+    
     return 0;
 }
