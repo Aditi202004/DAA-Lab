@@ -1,0 +1,2 @@
+enter size of array: maximum sum: 1998
+enter size of array: maximum sum: 1993

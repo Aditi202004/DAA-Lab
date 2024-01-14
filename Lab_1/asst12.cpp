@@ -36,11 +36,11 @@ int main(){
         input << num << endl;
         input << rand()%10 << endl;//W
         for(int i=0;i<num;i++){
-            input << rand()%10+1 << " ";//v[i]
+            input << rand()%10+1 << " ";//weights[i]
         }
         input << endl;
         for(int i=0;i<num;i++){
-            input << rand()%10+1 << " ";//w[i]
+            input << rand()%10+1 << " ";//values[i]
         }
         input << endl;
     } 
