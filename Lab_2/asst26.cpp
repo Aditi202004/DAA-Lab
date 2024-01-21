@@ -16,11 +16,12 @@ void Print(int *arr, int n){
 }
 
 int partition(int start, int end, int *arr){
-    int pivot = arr[end];
+    int pivot_ind = (start + end) / 2;
+    int pivot = arr[pivot_ind];
     int i = start-1;
     int j = start;
     while(j < end){
-        if(arr[j] >= pivot){
+        if(arr[j] >= pivot || j == pivot_ind){
             j++;
         }
         else if(arr[j] < pivot){
@@ -30,7 +31,7 @@ int partition(int start, int end, int *arr){
         }
     }
     i++;
-    swap(arr, i, j);
+    swap(arr, i, pivot_ind);
     return i;
 }
 
