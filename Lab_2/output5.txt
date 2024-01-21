@@ -1,0 +1,2 @@
+First minima is 4
+Second minima is 5

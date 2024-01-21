@@ -1,0 +1,1 @@
+The median element is 16697.5
