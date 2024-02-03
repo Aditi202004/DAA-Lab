@@ -65,7 +65,7 @@ void mergeSort(int arr[], int start, int end){
 	merge(arr, start, mid, end);
 }
 
-int mergesort(int arr[], int size, int k){
+int merge_sort(int arr[], int size, int k){
     mergeSort(arr, 0, size-1);
     return arr[size - k];
 }
@@ -87,7 +87,7 @@ int main(){
         cout << k << "th largest element is " << bubble(arr, n, k) << endl;
     }
     else{
-        cout << k << "th largest element is " << mergesort(arr, n, k) << endl;
+        cout << k << "th largest element is " << merge_sort(arr, n, k) << endl;
     }
 
     return 0;
