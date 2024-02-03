@@ -1,0 +1,1 @@
+the median of the arrays is 6667

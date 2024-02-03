@@ -1,0 +1,1 @@
+the number of inversion counts in the array is 24963068

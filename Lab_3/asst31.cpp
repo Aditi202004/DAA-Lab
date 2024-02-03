@@ -29,11 +29,11 @@ void Padding(vector<vector<int>> &mat, int max, int m, int n)
     }
 }
 
-void print(vector<vector<int>> mat, int startrow, int startcol, int length, int width)
+void print(vector<vector<int>> mat, int sr, int sc, int l, int width)
 {
-    for (int i = startrow; i < (startrow + length); i++)
+    for (int i = sr; i < (sr + l); i++)
     {
-        for (int j = startcol; j < (startcol + width); j++)
+        for (int j = sc; j < (sc + width); j++)
         {
             cout << mat[i][j] << " ";
         }
@@ -55,38 +55,38 @@ void print(vector<vector<int>> mat)
     }
 }
 
-void MatrixAdd(vector<vector<int>> mat1, vector<vector<int>> mat2, vector<vector<int>> &result, int startrow, int startcol, int length, int width)
+void MatrixAdd(vector<vector<int>> mat1, vector<vector<int>> mat2, vector<vector<int>> &result, int sr, int sc, int l, int width)
 {
-    for (int i = startrow; i < (startrow + length); i++)
+    for (int i = sr; i < (sr + l); i++)
     {
-        for (int j = startcol; j < (startcol + width); j++)
+        for (int j = sc; j < (sc + width); j++)
         {
             result[i][j] = mat1[i][j] + mat2[i][j];
         }
     }
 }
 
-vector<vector<int>> MatrixMulti(vector<vector<int>> mat1, vector<vector<int>> mat2, int startrow, int startcol, int startrow1, int startcol1, int startrow2, int startcol2, int length, vector<vector<int>> &result)
+vector<vector<int>> MatrixMulti(vector<vector<int>> mat1, vector<vector<int>> mat2, int sr, int sc, int sr1, int sc1, int sr2, int sc2, int l, vector<vector<int>> &result)
 {
-    if (length == 1)
+    if (l == 1)
     {
-        result[startrow][startcol] = mat1[startrow1][startcol1] * mat2[startrow2][startcol2];
+        result[sr][sc] = mat1[sr1][sc1] * mat2[sr2][sc2];
         return result;
     }
-    if (length == 2)
+    if (l == 2)
     {
 
-        result[startrow][startcol] = mat1[startrow1][startcol1] * mat2[startrow2][startcol2] + mat1[startrow1][startcol1 + 1] * mat2[startrow2 + 1][startcol2];
-        result[startrow][startcol + 1] = mat1[startrow1][startcol1] * mat2[startrow2][startcol2 + 1] + mat1[startrow1][startcol1 + 1] * mat2[startrow2 + 1][startcol2 + 1];
-        result[startrow + 1][startcol] = mat1[startrow1 + 1][startcol1] * mat2[startrow2][startcol2] + mat1[startrow1 + 1][startcol1 + 1] * mat2[startrow2 + 1][startcol2];
-        result[startrow + 1][startcol + 1] = mat1[startrow1 + 1][startcol1] * mat2[startrow2][startcol2 + 1] + mat1[startrow1 + 1][startcol1 + 1] * mat2[startrow2 + 1][startcol2 + 1];
+        result[sr][sc] = mat1[sr1][sc1] * mat2[sr2][sc2] + mat1[sr1][sc1 + 1] * mat2[sr2 + 1][sc2];
+        result[sr][sc + 1] = mat1[sr1][sc1] * mat2[sr2][sc2 + 1] + mat1[sr1][sc1 + 1] * mat2[sr2 + 1][sc2 + 1];
+        result[sr + 1][sc] = mat1[sr1 + 1][sc1] * mat2[sr2][sc2] + mat1[sr1 + 1][sc1 + 1] * mat2[sr2 + 1][sc2];
+        result[sr + 1][sc + 1] = mat1[sr1 + 1][sc1] * mat2[sr2][sc2 + 1] + mat1[sr1 + 1][sc1 + 1] * mat2[sr2 + 1][sc2 + 1];
         return result;
     }
 
-    MatrixAdd(MatrixMulti(mat1, mat2, startrow, startcol, startrow1, startcol1, startrow2, startcol2, length / 2, result), MatrixMulti(mat1, mat2, startrow, startcol, startrow1, startcol1 + length / 2, startrow2 + length / 2, startcol2, length / 2, result), result, startrow, startcol, length / 2, length / 2);
-    MatrixAdd(MatrixMulti(mat1, mat2, startrow, startcol + length / 2, startrow1, startcol1, startrow2, startcol2 + length / 2, length / 2, result), MatrixMulti(mat1, mat2, startrow, startcol + length / 2, startrow1, startcol1 + length / 2, startrow2 + length / 2, startcol2 + length / 2, length / 2, result), result, startrow, startcol + length / 2, length / 2, length / 2);
-    MatrixAdd(MatrixMulti(mat1, mat2, startrow + length / 2, startcol, startrow1 + length / 2, startcol1, startrow2, startcol2, length / 2, result), MatrixMulti(mat1, mat2, startrow + length / 2, startcol, startrow1 + length / 2, startcol1 + length / 2, startrow2 + length / 2, startcol2, length / 2, result), result, startrow + length / 2, startcol, length / 2, length / 2);
-    MatrixAdd(MatrixMulti(mat1, mat2, startrow + length / 2, startcol + length / 2, startrow1 + length / 2, startcol1, startrow2, startcol2 + length / 2, length / 2, result), MatrixMulti(mat1, mat2, startrow + length / 2, startcol + length / 2, startrow1 + length / 2, startcol1 + length / 2, startrow2 + length / 2, startcol2 + length / 2, length / 2, result), result, startrow + length / 2, startcol + length / 2, length / 2, length / 2);
+    MatrixAdd(MatrixMulti(mat1, mat2, sr, sc, sr1, sc1, sr2, sc2, l / 2, result), MatrixMulti(mat1, mat2, sr, sc, sr1, sc1 + l / 2, sr2 + l / 2, sc2, l / 2, result), result, sr, sc, l / 2, l / 2);
+    MatrixAdd(MatrixMulti(mat1, mat2, sr, sc + l / 2, sr1, sc1, sr2, sc2 + l / 2, l / 2, result), MatrixMulti(mat1, mat2, sr, sc + l / 2, sr1, sc1 + l / 2, sr2 + l / 2, sc2 + l / 2, l / 2, result), result, sr, sc + l / 2, l / 2, l / 2);
+    MatrixAdd(MatrixMulti(mat1, mat2, sr + l / 2, sc, sr1 + l / 2, sc1, sr2, sc2, l / 2, result), MatrixMulti(mat1, mat2, sr + l / 2, sc, sr1 + l / 2, sc1 + l / 2, sr2 + l / 2, sc2, l / 2, result), result, sr + l / 2, sc, l / 2, l / 2);
+    MatrixAdd(MatrixMulti(mat1, mat2, sr + l / 2, sc + l / 2, sr1 + l / 2, sc1, sr2, sc2 + l / 2, l / 2, result), MatrixMulti(mat1, mat2, sr + l / 2, sc + l / 2, sr1 + l / 2, sc1 + l / 2, sr2 + l / 2, sc2 + l / 2, l / 2, result), result, sr + l / 2, sc + l / 2, l / 2, l / 2);
 
     return result;
 }
