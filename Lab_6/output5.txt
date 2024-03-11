@@ -1,0 +1,4 @@
+articulation points: 
+5 
+bridges: 
+5 6
