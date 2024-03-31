@@ -1,0 +1,2 @@
+c b with profit 23
+a b with profit 39
