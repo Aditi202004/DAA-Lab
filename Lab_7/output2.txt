@@ -1,3 +1,3 @@
-Following is the maximum profit sequence of jobs: [ a b ], Total profit = 180
-Following is the maximum profit sequence of jobs: [ a c ], Total profit = 60
-Following is the maximum profit sequence of jobs: [ a c ], Total profit = 140
+a b with profit of : 180
+a c with profit of : 60
+a c with profit of : 140

@@ -1,72 +1,79 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
-#include <climits>
-#include <vector> 
+#include <queue>
 using namespace std;
 
-void solution(vector <vector<int>> jobs, string names[]){
-    // jobs(idx, deadline, profit)
-    int n = jobs.size();
+struct profit_compare{
+    bool operator()(pair<int, pair<int, int>> a, pair <int, pair <int, int>> b){
+        return a.second.first < b.second.first;
+    }
 
-    sort(jobs.begin(), jobs.end(), [](const vector<int>&a, const vector<int>&b){
-        return a[1] <= b[1];
-    });
+};
 
-    int max_total = INT_MIN;
-    int local_max = INT_MIN;
-    int local_max_id = 0; 
-    int curr_profit = INT_MIN;
-    int curr_deadline = 0;
+bool deadline_compare(pair<int, pair<int, int>> a, pair <int, pair <int, int>> b){
+    return a.second.second < b.second.second;
+}
 
-    cout << "Following is the maximum profit sequence of jobs: [ ";
-    for(auto job : jobs){
-        curr_profit = job[2];
-        if(job[1] == curr_deadline){
-            if(local_max < curr_profit){
-                local_max = curr_profit;
-                local_max_id = job[0];
-            }
+int solution(vector<pair<int, pair<int,int>>>jobs, int n, string names[]){
+    sort(jobs.begin(), jobs.end(), deadline_compare);
+    vector<pair<int, pair<int,int>>> result;
+    int ans = 0;
+    priority_queue<pair <int, pair<int, int>>, vector<pair <int, pair<int, int>>>, profit_compare> pq;
+    for(int i = n-1; i >= 0; i--){
+        int slots_for_i;
+        if(i == 0){
+            slots_for_i = jobs[i].second.second;
         }
         else{
-            max_total += local_max;
-            if(curr_profit != 0){ cout << names[local_max_id] << " "; } // if condition is to avoid printing the last job again 
-            local_max = curr_profit;
-            curr_deadline = job[1];
+            slots_for_i = jobs[i].second.second - jobs[i-1].second.second;
+        }
+        pq.push(jobs[i]);
+        while(slots_for_i > 0 && !pq.empty()){
+            pair<int, pair<int,int>> job_info = pq.top();
+            // cout << pq.size() << " " << job_info.second.first << endl;
+            pq.pop();
+            slots_for_i--;
+            result.push_back(job_info);
+            ans += job_info.second.first;
+            int index = job_info.first;
+            cout << names[index] << " ";
         }
     }
-    cout << "], Total profit = " << max_total << endl;
-
+    return ans;
 }
 
 int main(){
-    #ifndef ONLINE_JUDGE
-        freopen("input2.txt", "r", stdin);
-        freopen("output2.txt", "w", stdout);
-    #endif
 
-    int t; cin >> t;
+    freopen("input2.txt","r",stdin);
+    freopen("output2.txt","w",stdout);
+
+    int t;
+    cin >> t;
     while(t--){
-        int n; cin >> n;
-        string *job_names = new string[n+1];
-        vector <vector<int>> jobs(n+1, vector<int>(4));       // jobs(idx, deadline, profit)
+        int n;
+        cin >> n;
+        string *job_names = new string[n];
+        vector <vector<int>> job_temp(n, vector<int>(2));
 
-        //taking input
+        vector<pair<int, pair<int, int>>>jobs;
         for(int i = 0; i < n; i++){
-            jobs[i][0] = i;
             cin >> job_names[i];
         }
         for(int i = 0; i < n; i++){
-            cin >> jobs[i][1];
+            cin >> job_temp[i][0];
         }
         for(int i = 0; i < n; i++){
-            cin >> jobs[i][2];
+            cin >> job_temp[i][1];
         }
-        job_names[n] = "padding";
-        jobs[n][0] = n;
-        jobs[n][1] = INT_MAX;
-        jobs[n][2] = 0;
 
-        solution(jobs, job_names);
+        for(int i = 0; i < n; i++){
+            jobs.push_back(make_pair(i, make_pair(job_temp[i][1], job_temp[i][0])));
+        }
+        
+        int profit = solution(jobs, n, job_names);
+        cout << "with profit of : " << profit << endl;
+        delete[] job_names;
     }
     return 0;
 }

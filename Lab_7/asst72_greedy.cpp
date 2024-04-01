@@ -13,14 +13,20 @@ void solution(vector <vector<int>> jobs, string names[]){
     // for(auto itr : jobs){
     //     cout << itr[2] << endl;
     // }
+    bool *slots = new bool[n];
     cout << "Following is the maximum profit sequence of jobs: [ ";
     int max_profit = 0;
     int curr_time = 0;
-    for(auto itr : jobs){
-        if(itr[1] - curr_time > 0){
-            max_profit+=itr[2];
-            cout << names[itr[0]] << " ";
-            curr_time++;
+
+    for(auto job : jobs){
+        int curr_deadline = job[1];
+        for(int i = curr_deadline - 1; i >= 0; i--){
+            if(slots[i] == 0){
+                slots[i] = 1;
+                max_profit += job[2];
+                cout << names[job[0]] << " ";
+                break;
+            }
         }
     }
     cout << "], Total profit = " << max_profit << endl;
@@ -55,13 +61,3 @@ int main(){
     }
     return 0;
 }
-
-
-
-
-// greedy approach fails when for example there is an item with largest deadline as well as largest profit like
-// 4
-// a b c d
-// 4 1 1 1
-// 100 10 40 30
-// max should be 140 but we get 100 by greedy
