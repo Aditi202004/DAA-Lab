@@ -1,0 +1,10 @@
+MST: 30
+Second minimum spanning tree is: 31
+MST: 5
+Second minimum spanning tree is: 6
+MST: 42
+Second minimum spanning tree is: 44
+MST: 2933
+Second minimum spanning tree is: 3053
+MST: 4940
+Second minimum spanning tree is: 5092
