@@ -24,6 +24,8 @@ int main(){
     // }
 
     for(int i = 0; i < num; i++){
+    
+        input << rand()%10 << endl;
         for(int j = 0 ;j < num; j++){
             input << rand()%2 << " ";
         }
